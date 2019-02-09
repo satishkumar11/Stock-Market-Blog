@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+      {% for post in posts.items %}
+          <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="{{url_for('user_posts', username = post.author.username)}}">{{ post.author.username }}</a>
+                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+              </div>
+              <h2><a class="article-title" href="{{ url_for('post', post_id = post.id) }}">{{ post.title }}</a></h2>
+              <p class="article-content">{{ post.content }}</p>
+
+              <div style="float:right;">
+                {% if current_user.has_liked_post %}
+                  {% if current_user.has_liked_post(post) %}
+                    <a href="{{ url_for('like_action', post_id=post.id, action='unlike') }}">Unlike</a>
+                  {% else %}
+                    <a href="{{ url_for('like_action', post_id=post.id, action='like') }}">Like</a>
+                  {% endif %}
+                {% endif %}
+                {{ post.likes.count() }} likes
+              </div>
+
+            </div>
+          </article>
+    
+      {% endfor %}
+  </div>
+
+  <div class="col-md-4">
+  <div class="content-section">
+      <form method="POST" action="">
+          {{market.hidden_tag()}}
+          <fieldset class="form-group">
+              <legend class="border-bottom md-4"> {{ legend }} </legend>
+              <div class="form-group">
+                  {{market.stockname.label(class="form-control-label")}}
+                  {% if market.stockname.errors %}
+                  {{market.stockname(class="form-control form-control-lg is-invalid")}}
+                  <div>
+                    {% for error in market.stockname.errors%}
+                    <span>{{error}}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %}
+                  {{market.stockname(class="form-control form-control-lg")}}
+                  {% endif %}
+                </div>
+          </fieldset>
+          <div class="form-group">
+              {{market.submit(class="btn btn-outline-info")}}
+          </div>
+      </form>
+
+      {% if data %}
+        {% if data.dataset is defined %}
+          <p> Name: {{data.dataset.name}}</p>
+          <p> Value : {{data.dataset.data[0][1]}} On  {{data.dataset.data[0][0]}}</p>
+        {% else %}
+          <p> Invalid Stock </p>
+        {% endif %}        
+      {% endif %}
+  </div>
+</div>
+
+</div>
+
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+          {% if posts.page == page_num %} 
+            <a class="btn btn-info mb-4" href="{{url_for('home', page=page_num)}}">{{ page_num }}</a>
+          {% else %}
+            <a class="btn btn-outline-info mb-4" href="{{url_for('home', page=page_num)}}">{{ page_num }}</a>
+          {% endif %}
+        {% else %}
+          ...
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
