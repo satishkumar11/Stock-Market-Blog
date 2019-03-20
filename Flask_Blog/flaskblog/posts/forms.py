@@ -14,3 +14,10 @@ class PostComment(FlaskForm):
 class Market(FlaskForm):
     stockname = StringField('Get Stock Status', validators = [DataRequired()])
     submit = SubmitField('Check Stock Status')
+
+class Payment(FlaskForm):
+    submit = SubmitField('Pay Now')
+
+# class CommentYourExperience(FlaskForm):
+#     experience = StringField('Post Your Experience', validators = [DataRequired()])
+#     submitFeedback = SubmitField('Add Your Feedback')

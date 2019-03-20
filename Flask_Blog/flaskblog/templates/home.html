@@ -31,7 +31,7 @@
   </div>
 
   <div class="col-md-4">
-  <div class="content-section">
+    <div class="content-section">
       <form method="POST" action="">
           {{market.hidden_tag()}}
           <fieldset class="form-group">
@@ -59,11 +59,113 @@
         {% if data.dataset is defined %}
           <p> Name: {{data.dataset.name}}</p>
           <p> Value : {{data.dataset.data[0][1]}} On  {{data.dataset.data[0][0]}}</p>
+          <!-- <p><a class="article-title" href="{{ url_for('posts.chart') }}" data-target="#deleteModal">View Graph</a></p> -->
         {% else %}
           <p> Invalid Stock </p>
         {% endif %}        
       {% endif %}
+    </div>
+
+
+    
+    <!-- <div class="content-section">
+      <form method="POST" action="">
+          {{market.hidden_tag()}}
+          <fieldset class="form-group">
+              <legend class="border-bottom md-4"> {{ legend }} </legend>
+              <div class="form-group">
+                  <h3> Ask The Experts </h3>
+              </div>
+          </fieldset>
+          <div class="form-group">
+            <a href="https://www.linkedin.com/in/satish-kumar-966a1086/">
+              <img border="0" alt="W3Schools" src="/static/profile_pics/Satish.jpg" width="100" height="100">
+            </a>
+          </div>
+      </form>
+    </div> -->
+
+
+
+
+
+
+  <h4>Experts</h4>
+  <div id="demo" class="carousel slide content-section" data-ride="carousel" data-interval="false">
+    <!-- style="background-color:lightblue" -->
+    <div class="carousel-inner">
+
+        {% for content in experts %}
+
+        <div class="carousel-item{% if loop.index == 1 %} active{% endif %}">
+          <div class="row col-md-8 float-left">
+              <a href="{{ url_for('posts.payment', expert_id=content.id) }}">
+            <img src="{{ url_for('static', filename='profile_pics/' + content.image_file) }}"alt="Los Angeles" width="100" height="100">
+            <!-- <div class="carousel-caption"></div> -->
+          </div>
+          <div class="float-left">
+            <p>Name : {{content.firstname}} </p>
+            <p>Rating : {{content.rating}}</p>
+          </div>
+          <div class="">
+            <p> Description: {{content.description}}</p>
+          </div>
+        </div>
+
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon" style="background-color: black;"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon" style="background-color: black;"></span>
+        </a>
+        {% endfor %}
+
+      <!-- <div class="carousel-item active">
+        <img src="/static/profile_pics/Satish.jpg" alt="Los Angeles" width="100" height="100">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/profile_pics/099f6947ddd4b67f.jpg" alt="Chicago" width="100" height="100">
+      </div>
+      <div class="carousel-item">
+        <img src="/static/profile_pics/Satish1.jpg" alt="New York" width="100" height="100">
+      </div> -->
+      <!-- <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon" style="background-color: black;"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon" style="background-color: black;"></span> -->
+    </div>
   </div>
+
+
+
+  <!-- News Article -->  
+<div class="article-metadata">
+    <h4>Business News - 
+      <a target="_blank" rel="noopener noreferrer" href="https://newsapi.org/">News API</a>
+    </h4>
+    <div class="content-section ScrollStyle">
+      {% if newsData %}
+        {% if newsData.articles is defined %}
+          {% for x in newsData.articles %}
+            <div class="article-metadata">
+              <h6><a target="_blank" rel="noopener noreferrer" class="article-title" href="{{x.url}}"
+                title="Author : {{x.author}}">{{x.title}}</a></h6>
+            </div>
+          {% endfor %}
+        {% endif %}        
+      {% endif %}
+    </div>
+</div>
+
+
+
+  <div class="article-metadata">
+      <!-- <img class="rounded-circle article-img"  src="./static/profile_pics/linkedIn" > -->
+      <span> Follow Me At :-<span>
+      <a style="color:green" target="_blank" rel="noopener noreferrer" href='https://www.linkedin.com/in/satish-kumar-966a1086/'>LinkedIn</a>
+  </div>
+
 </div>
 
 </div>

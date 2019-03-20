@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{form.hidden_tag()}}
+        <div class="form-group">
+            {{form.submit(class="btn btn-outline-info")}}
+        </div>
+    </form>
+</div>
+<form action="{{ url_for('posts.pay') }}" method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="{{ pub_key }}"
+      data-amount="999"
+      data-name="Demo Site"
+      data-description="Widget"
+      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+      data-locale="auto">
+    </script>
+  </form>
+{% endblock content %}
