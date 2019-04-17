@@ -10,6 +10,3 @@ class Config:
     MAIL_USERNAME = os.environ.get('EMAIL_USER')
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
     NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
-
-    # mysql -h stockmarket.ciddqkpl6tr6.ap-south-1.rds.amazonaws.com -P 3306 -u nitssats -p
-    #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://nitssats:nitish01@stockmarket.ciddqkpl6tr6.ap-south-1.rds.amazonaws.com:3306/nitssats'
